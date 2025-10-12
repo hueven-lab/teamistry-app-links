@@ -1,0 +1,16 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.huevenlab.teamistryapp",
+      "sha256_cert_fingerprints": [
+        "64:7C:37:D4:EF:F5:CE:66:59:3D:FF:76:59:A7:E7:8C:72:DD:A3:29:55:FA:65:92:F4:9B:CE:5E:E7:68:19:93"
+      ]
+    }
+  }
+]
+
+

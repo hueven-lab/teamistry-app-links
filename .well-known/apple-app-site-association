@@ -1,0 +1,21 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": [
+          "98P94K9C67.com.huevenlab.teamistryapp"
+        ],
+        "components": [
+          {
+            "/": "/event-master",
+            "?": { "eventId": "*" },
+            "comment": "Event details deep link"
+          }
+        ]
+      }
+    ]
+  }
+}
+
+
