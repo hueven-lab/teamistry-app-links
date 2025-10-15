@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Opening Teamistry…</title>
+    <script>
+      (function () {
+        var ua = navigator.userAgent || "";
+        var isAndroid = /Android/i.test(ua);
+        var isIOS = /iPhone|iPad|iPod/i.test(ua);
+        var iosStore = "https://apps.apple.com/hk/app/teamistry-club/id6749819182";
+        var androidStore = "https://play.google.com/store/apps/details?id=com.huevenlab.teamistryapp";
+        var originalHref = window.location.href;
+        var fragment = originalHref ? ("#deeplink=" + encodeURIComponent(originalHref)) : "";
+
+        if (isIOS) {
+          window.location.replace(iosStore + fragment);
+          return;
+        }
+
+        if (isAndroid) {
+          window.location.replace(androidStore + fragment);
+          return;
+        }
+
+        // Desktop and other platforms: no redirect here.
+      })();
+    </script>
+  </head>
+  <body>
+    Redirecting…
+    <noscript>
+      JavaScript is required to redirect. Please visit the app store:
+      <div>
+        <a href="https://apps.apple.com/hk/app/teamistry-club/id6749819182">Open in App Store</a>
+      </div>
+      <div>
+        <a href="https://play.google.com/store/apps/details?id=com.huevenlab.teamistryapp">Open in Google Play</a>
+      </div>
+    </noscript>
+  </body>
+  </html>
+
+
