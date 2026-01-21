@@ -11,6 +11,14 @@
             "/": "/event-master",
             "?": { "eventId": "*" },
             "comment": "Event details deep link"
+          },
+          {
+            "/": "/",
+            "comment": "Allow root path for Supabase Auth redirects"
+          },
+          {
+            "/": "/auth/*",
+            "comment": "Allow auth subpaths if needed"
           }
         ]
       }
