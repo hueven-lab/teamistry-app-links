@@ -13,6 +13,11 @@
             "comment": "Event details deep link"
           },
           {
+            "/": "/payments/details",
+            "?": { "teamId": "*", "expenseId": "*" },
+            "comment": "Payment details deep link"
+          },
+          {
             "/": "/",
             "comment": "Allow root path for Supabase Auth redirects"
           },
@@ -25,5 +30,4 @@
     ]
   }
 }
-
 
