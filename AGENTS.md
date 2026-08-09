@@ -15,6 +15,7 @@ for every production change.
 - `.well-known/assetlinks.json` is the Android App Links association document.
 - `event-master/index.html` is the Event Details browser/store fallback.
 - `payments/details/index.html` is the Payment Details browser/store fallback.
+- `join-team/index.html` is the short-lived Team Invite browser/store fallback.
 - `privacy-policy/index.html` and `terms-of-service/index.html` are public legal
   pages.
 - A fallback page's directory must match the corresponding public mobile route.
@@ -100,6 +101,12 @@ plan before implementation.
 - Fallback pages may preserve the original public URL for app/store handoff, but
   must not fetch, render, infer, or expose private event, team, payment, member,
   or expense data.
+- `/join-team` is a stricter bearer-secret boundary. Its exact public contract
+  is `https://app.teamistryclub.com/join-team#token=<43-character Base64URL>`.
+  The fragment is owned by the compatible mobile app and is not sent in the
+  HTTP request. The fallback must never read, render, encode, forward, persist,
+  log, or append that fragment to App Store, Play Store, analytics, referrer,
+  query, or other network destinations. Keep `Referrer-Policy: no-referrer`.
 - Do not add analytics, pixels, third-party scripts, or logging of full deep-link
   URLs or query values without explicit privacy review and approval.
 - Keep desktop and no-script behavior usable and privacy-minimal.
@@ -152,6 +159,9 @@ Also verify as applicable:
 - Changed public paths and query keys match the mobile route contract.
 - Association documents retain every unrelated live entry.
 - Fallback HTML works for desktop, iOS, Android, and no-script behavior.
+- `/join-team` iOS and Android redirects are exactly the established store URLs
+  with no query or fragment suffix. Test a synthetic token-bearing local URL
+  and prove no requested or redirected network URL contains the token.
 - Store URLs and app identifiers are still correct.
 - Legal-page titles, contact details, and approved effective dates are correct.
 
