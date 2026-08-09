@@ -99,6 +99,31 @@ If the compatible mobile build is not yet available to users, stop before
 association activation unless the user explicitly approves a staged rollout and
 its consequences.
 
+### `/join-team` receiver-first gate
+
+The short-lived team-invite contract is
+`https://app.teamistryclub.com/join-team#token=<43-character Base64URL>`. The
+fragment is a bearer secret and is never sent to this static host. Its fallback
+has a stricter privacy contract than the existing event fallback: it must not
+read, preserve, encode, forward, render, store, log, or append the fragment to
+either store destination or any other network request.
+
+Keep the local candidate inactive until all of these release facts are known:
+
+1. a receiver-capable mobile version is available at the required iOS and
+   Android rollout level and safely handles valid, invalid, expired, revoked,
+   signed-out, and already-member links;
+2. the additive database resolve/redeem contract used by that version is live;
+3. permanent team-code joining remains available to older apps;
+4. the sender-generation flag and public association activation order are
+   explicitly approved; and
+5. the release owner grants fresh permission for the actual merge/push/Pages
+   deployment after reviewing the candidate commit and rollout facts.
+
+Local implementation permission, a prepared feature branch, or an earlier
+general release request is not fresh deployment permission. If compatible store
+rollout or database readiness is unproved, stop with the candidate local.
+
 ## 2. Prepare The Candidate
 
 Start from the intended candidate branch, normally `develop` or a focused
@@ -154,6 +179,23 @@ Verify:
 - no-script store links;
 - no private-data rendering, network fetches, analytics, or query logging; and
 - valid HTML structure and the intended page title.
+
+For `/join-team`, start a local server from the candidate root and use only a
+synthetic token:
+
+```bash
+python3 -m http.server 8000 --bind 127.0.0.1
+```
+
+Open
+`http://127.0.0.1:8000/join-team#token=Abcdefghijklmnopqrstuvwxyz0123456789_-ABCDE`
+in Chrome. Verify the desktop guidance and both no-script store links. Repeat
+with iPhone/iPad and Android user agents while recording requested/navigation
+URLs. The mobile redirect must equal the established platform store URL with no
+query or fragment suffix. The synthetic token must occur in no request,
+redirect destination, page text, console message, storage entry, analytics, or
+referrer. Confirm the page makes no fetch/XHR/beacon/pixel request and works at
+narrow and wide widths. Keep screenshots and browser logs local and untracked.
 
 ## 4. Cross-Repository Compatibility Gate
 
@@ -291,6 +333,13 @@ Apple cache propagation can lag the GitHub Pages release. Record the origin
 result, Apple CDN result, device result, and time checked. Do not repeatedly
 edit or republish association files just to force cache refresh.
 
+For `/join-team`, require the Apple cached document to contain the exact
+`/join-team` component before treating iOS association activation as observed.
+Origin success with an older Apple CDN body is a pending cache state, not a
+failure to work around by republishing. The final Universal Link check requires
+a real iPhone with the compatible installed app; a browser redirect proves only
+the fallback.
+
 ### Android
 
 Inspect Google's Digital Asset Links view when applicable, then re-verify on a
@@ -327,6 +376,14 @@ changes propagate.
 If the incident requires DNS, custom-domain, HTTPS, store, mobile, backend, or
 Supabase changes, handle those as separate explicitly approved operations under
 their owning repository or service.
+
+For a team-invite rollback, first disable sender generation through its owning
+mobile release/configuration process if that action is separately authorized.
+Then use a reviewed revert commit for the AASA component and fallback. Preserve
+permanent team-code recovery throughout. Apple and Android association caches
+may continue opening `/join-team` in installed apps after origin rollback, so
+the released mobile receiver must keep invalid/expired/unavailable handling;
+never rely on an immediate association-cache purge as the security boundary.
 
 ## Final Report Checklist
 
