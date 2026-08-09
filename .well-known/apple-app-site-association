@@ -8,6 +8,10 @@
         ],
         "components": [
           {
+            "/": "/join-team",
+            "comment": "Short-lived team invitation deep link"
+          },
+          {
             "/": "/event-master",
             "?": { "eventId": "*" },
             "comment": "Event details deep link"
@@ -30,4 +34,3 @@
     ]
   }
 }
-
