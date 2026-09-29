@@ -59,6 +59,22 @@ Do not rely only on summaries or prior knowledge for cross-repository work.
   repository visibility, or branch protection unless the user explicitly asks
   for that external configuration change.
 
+## Repository Clean State
+
+- The expected steady state has only the long-lived `main` and `develop`
+  branches, both locally and on the remote.
+- The primary checkout and every retained worktree must be clean: no staged,
+  unstaged, or untracked files should remain after a completed handoff.
+- Temporary feature, fix, chore, docs, release, or agent branches and linked
+  worktrees are allowed only while their development work is active.
+- After development finishes, review every extra branch and worktree. Verify its
+  status, upstream, pull-request outcome, and commit containment in `main` or
+  `develop` before cleanup.
+- Remove verified transient worktrees and delete merged or superseded local and
+  remote branches. Never force-delete dirty or unmerged work; preserve it and
+  report the exact blocker for an explicit decision.
+- Never remove `main` or `develop` during routine cleanup.
+
 ## Public Contract And Backward Compatibility
 
 Treat all of the following as external production contracts:
